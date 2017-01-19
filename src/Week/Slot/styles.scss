@@ -1,0 +1,20 @@
+@import '../../variables';
+
+.box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  margin: 2px;
+  transition: all 0.5s;
+  overflow: hidden;
+  border: 1px solid black;
+  cursor: pointer;
+
+  &.isSelected {
+    background-color: $selected-color;
+  }
+
+  &.isUsed {
+    background-color: tomato;
+  }
+}
