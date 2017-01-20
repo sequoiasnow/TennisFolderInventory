@@ -8,7 +8,19 @@ import Selection from '../Selection';
 import Setup from '../Setup';
 import Week from '../Week';
 
-export const Navigation = ({ selected, navigateTo }) => {
+export const Navigation = ({ currentLeague, selected, navigateTo }) => {
+  let allowNavigation = true;
+  if (! Object.keys(currentLeague).length ) {
+    allowNavigation = false;
+  }
+
+  const condNavTo = (canNavigate) => (where) => {
+    if ( canNavigate) {
+      navigateTo(where);
+    }
+  };
+  
+  
   return (
     <div className={styles.container + ' ' + styles['select' + selected]}>
       <div className={styles.viewWrapper}>
@@ -19,17 +31,18 @@ export const Navigation = ({ selected, navigateTo }) => {
         </div>
       </div>
       <div className={styles.selectedView}>
-        <span onClick={() => navigateTo(LEAGUE_SELECT)}></span>
-        <span onClick={() => navigateTo(SETUP)}></span>
-        <span onClick={() => navigateTo(SLOT_SELECT)}></span>
-        </div>
+        <span onClick={() => condNavTo(allowNavigation)(LEAGUE_SELECT)}></span>
+        <span onClick={() => condNavTo(allowNavigation)(SETUP)}></span>
+        <span onClick={() => condNavTo(allowNavigation)(SLOT_SELECT)}></span>
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    selected: state.navigation
+    selected: state.navigation,
+    currentLeague: state.league.current
   };
 };
 

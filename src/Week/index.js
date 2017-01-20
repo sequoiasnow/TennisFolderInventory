@@ -91,7 +91,7 @@ export const Week = ({ slotsPerTime, timeDuration, times, startDate, league, aff
 
 let hasRefreshed = false;;
 
-export const WeekContainer = ({ slotsPerTime, timeDuration, times, league, affiliationId, startDate, refresh, numbWeeks = 15 }) => {
+export const WeekContainer = ({ leagueTitle, slotsPerTime, timeDuration, times, league, affiliationId, startDate, refresh, numbWeeks = 15 }) => {
 
   if (league && affiliationId && hasRefreshed !== league) {
     refresh({ type: league, affiliationId});
@@ -112,6 +112,7 @@ export const WeekContainer = ({ slotsPerTime, timeDuration, times, league, affil
   
   return (
     <div className={styles.weekContainer}>
+      <span className={styles.leagueTitle}>{leagueTitle}</span>
       {weeks}
     </div>
   ); 
@@ -123,6 +124,7 @@ const mapStateToProps = (state) => {
     timeDuration: state.setup.timeDuration,
     times: state.setup.times,
     league: state.league.current.id,
+    leagueTitle: state.league.current.title,
     affiliationId: state.setup.affiliationId,
     startDate: state.setup.startDate 
   };
